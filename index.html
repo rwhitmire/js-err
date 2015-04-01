@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <link rel="stylesheet" href="">
+</head>
+<body>
+    <script>
+        window.onerror = function(message, url, line, column, error) {
+            var request = new XMLHttpRequest();
+            request.open("POST", "http://localhost:5000/error");
+            request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+            request.send(JSON.stringify({
+                date: new Date(),
+                message: message,
+                url: url,
+                line: line,
+                column: column,
+                stack: error.stack
+            }));
+        };
+
+        alrrrrt('something');
+    </script>
+</body>
+</html>
