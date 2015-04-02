@@ -13,7 +13,9 @@
             request.open("POST", "http://localhost:5000/errors");
             request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
-            var client = window.clientInformation;
+            var client = window.clientInformation ||  // chrome & ie
+                window.navigator ||  // firefox
+                {}; // unknown
 
             var data = JSON.stringify({
                 date: new Date(),
