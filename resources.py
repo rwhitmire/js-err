@@ -35,12 +35,20 @@ error_fields = {
     'line': fields.Integer,
     'column': fields.Integer,
     'stack': fields.String,
+    'app_code_name': fields.String,
+    'app_name': fields.String,
+    'app_version': fields.String,
+    'cookie_enabled': fields.String,
+    'language': fields.String,
+    'platform': fields.String,
+    'product': fields.String,
+    'user_agent': fields.String,
+    'vendor': fields.String,
 }
 
 
 class ErrorResource(Resource):
-    decorators = [auth.login_required]
-
+    @auth.login_required
     @marshal_with(error_fields)
     def get(self):
         return session.query(Error).all()
@@ -54,6 +62,15 @@ class ErrorResource(Resource):
         parser.add_argument('line')
         parser.add_argument('column')
         parser.add_argument('stack')
+        parser.add_argument('app_code_name')
+        parser.add_argument('app_name')
+        parser.add_argument('app_version')
+        parser.add_argument('cookie_enabled')
+        parser.add_argument('language')
+        parser.add_argument('platform')
+        parser.add_argument('product')
+        parser.add_argument('user_agent')
+        parser.add_argument('vendor')
         args = parser.parse_args()
 
         error = Error(
@@ -63,6 +80,15 @@ class ErrorResource(Resource):
             line=args['line'],
             column=args['column'],
             stack=args['stack'],
+            app_code_name=args['app_code_name'],
+            app_name=args['app_name'],
+            app_version=args['app_version'],
+            cookie_enabled=args['cookie_enabled'],
+            language=args['language'],
+            platform=args['platform'],
+            product=args['product'],
+            user_agent=args['user_agent'],
+            vendor=args['vendor'],
         )
 
         session.add(error)

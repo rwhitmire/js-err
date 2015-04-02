@@ -64,6 +64,15 @@ class Error(Base):
     date = Column(DateTime)
     stack = Column(String)
     url = Column(String)
+    app_code_name = Column(String)
+    app_name = Column(String)
+    app_version = Column(String)
+    cookie_enabled = Column(String)
+    language = Column(String)
+    platform = Column(String)
+    product = Column(String)
+    user_agent = Column(String)
+    vendor = Column(String)
 
 
 if __name__ == "__main__":
