@@ -5,6 +5,10 @@
 
     var App = new Marionette.Application();
 
+    App.addRegions({
+        mainRegion: '#main-region'
+    });
+
     App.on('start', function() {
         Backbone.history.start();
     });
@@ -12,25 +16,20 @@
 
     $.ajaxSetup({
         beforeSend: function (xhr) {
-            var token = $.cookie('token');
-            if (!token) {
-                return;
-            }
-
-            xhr.setRequestHeader('Authorization', 'Basic ' + token);
+            xhr.setRequestHeader('Authorization', 'Basic ' + $.cookie('token') || '');
         },
     });
 
 
-
     $(document).ready(function () {
-        var xhr = http.get('user');
+        var promise = $.when(http.get('user'));
 
-        xhr.done(function(response){
-            console.log(response);
+        promise.done(function(user){
+            App.user = new App.Models.User(user);
+            console.log('user.attributes', user);
         });
 
-        xhr.fail(function(response){
+        promise.fail(function(response){
             if(response.status === 401) {
                 window.location = '/login.html';
             }

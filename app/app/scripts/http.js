@@ -2,8 +2,11 @@
     'use strict';
 
     window.http = {
+
+        api: 'http://localhost:5000/',
+
         get: function(url) {
-            url = 'http://localhost:5000/' + url;
+            url = this.api + url;
 
             return $.ajax({
                 url: url,
@@ -14,7 +17,7 @@
         },
 
         post: function(url, data) {
-            url = 'http://localhost:5000/' + url;
+            url = this.api + url;
 
             if(typeof data === 'object'){
                 data = JSON.stringify(data);

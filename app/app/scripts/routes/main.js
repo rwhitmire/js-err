@@ -8,6 +8,7 @@ App.module('Routers', function(Routers) {
         controller: new App.Controllers.MainController(),
 
         appRoutes: {
+            '': 'dashboard',
             'dashboard': 'dashboard'
         }
 

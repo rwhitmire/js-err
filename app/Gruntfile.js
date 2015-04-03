@@ -45,13 +45,13 @@ module.exports = function (grunt) {
                     '{.tmp,<%= yeoman.app %>}/styles/{,*/}*.css',
                     '{.tmp,<%= yeoman.app %>}/scripts/{,*/}*.js',
                     '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp}',
-                    '<%= yeoman.app %>/scripts/templates/*.{ejs,mustache,hbs}',
+                    '<%= yeoman.app %>/scripts/templates/**/*.{ejs,mustache,hbs}',
                     'test/spec/**/*.js'
                 ]
             },
             jst: {
                 files: [
-                    '<%= yeoman.app %>/scripts/templates/*.hbs'
+                    '<%= yeoman.app %>/scripts/templates/**/*.hbs'
                 ],
                 tasks: ['handlebars']
             },
@@ -239,10 +239,13 @@ module.exports = function (grunt) {
         handlebars: {
             compile: {
                 options: {
-                    namespace: 'JST'
+                    namespace: 'JST',
+                    processName: function(filePath) {
+                        return filePath.replace(/app\/scripts\/templates\//g, '');
+                    }
                 },
                 files: {
-                    '.tmp/scripts/templates.js': [yeomanConfig.app + '/scripts/templates/*.hbs']
+                    '.tmp/scripts/templates.js': [yeomanConfig.app + '/scripts/templates/**/*.hbs']
                 }
             }
         },
