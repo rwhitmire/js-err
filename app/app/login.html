@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <link rel="stylesheet" href="">
+</head>
+<body>
+
+    <form>
+        <p>
+            <input type="text" id="username">
+        </p>
+        <p>
+            <input type="password" id="password">
+        </p>
+        <p>
+            <button>login</button>
+        </p>
+    </form>
+
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/jquery.cookie/jquery.cookie.js"></script>
+    <script src="scripts/http.js"></script>
+
+    <script>
+
+        $('form').on('submit', function(e) {
+            e.preventDefault();
+
+            var data = {
+                username: $('#username').val(),
+                password: $('#password').val(),
+            }
+
+            var xhr = http.post('token', data)
+
+            xhr.done(function(response) {
+                $.cookie('token', btoa(response.token + ':'), { expires: 2, path: '/' });
+                window.location = '/';
+            });
+        });
+
+    </script>
+</body>
+</html>
