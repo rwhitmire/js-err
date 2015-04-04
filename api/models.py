@@ -1,6 +1,7 @@
 from sqlalchemy import Column
 from sqlalchemy import Integer
 from sqlalchemy import String
+from sqlalchemy import Boolean
 from sqlalchemy import DateTime
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship
@@ -67,7 +68,7 @@ class Error(Base):
     app_code_name = Column(String)
     app_name = Column(String)
     app_version = Column(String)
-    cookie_enabled = Column(String)
+    cookie_enabled = Column(Boolean)
     language = Column(String)
     platform = Column(String)
     product = Column(String)
@@ -81,3 +82,9 @@ if __name__ == "__main__":
     engine = create_engine(DB_URI)
     Base.metadata.drop_all(engine)
     Base.metadata.create_all(engine)
+
+    user = User(username='ryan')
+    user.hash_password('password')
+
+    session.add(user)
+    session.commit()

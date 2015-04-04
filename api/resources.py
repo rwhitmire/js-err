@@ -38,7 +38,7 @@ error_fields = {
     'app_code_name': fields.String,
     'app_name': fields.String,
     'app_version': fields.String,
-    'cookie_enabled': fields.String,
+    'cookie_enabled': fields.Boolean,
     'language': fields.String,
     'platform': fields.String,
     'product': fields.String,
@@ -47,7 +47,7 @@ error_fields = {
 }
 
 
-class ErrorResource(Resource):
+class ErrorsResource(Resource):
     @auth.login_required
     @marshal_with(error_fields)
     def get(self):
@@ -104,6 +104,13 @@ user_fields = {
 
 
 class UserResource(Resource):
+    @auth.login_required
+    @marshal_with(user_fields)
+    def get(self):
+        return g.user
+
+
+class UsersResource(Resource):
     @marshal_with(user_fields)
     def post(self):
         parser = reqparse.RequestParser()

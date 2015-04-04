@@ -1,24 +1,20 @@
 from flask import Flask
 from flask.ext.restful import Api
-from resources import ErrorResource
+from flask.ext.cors import CORS
+from resources import ErrorsResource
 from resources import UserResource
+from resources import UsersResource
 from resources import TokenResource
 
 app = Flask(__name__)
 api = Api(app)
-
-
-@app.after_request
-def after_request(response):
-    response.headers.add('Access-Control-Allow-Origin', '*')
-    response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
-    response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
-    return response
+cors = CORS(app)
 
 
 api.add_resource(TokenResource, '/token', endpoint='token')
-api.add_resource(ErrorResource, '/errors', endpoint='errors')
-api.add_resource(UserResource, '/users', endpoint='users')
+api.add_resource(ErrorsResource, '/errors', endpoint='errors')
+api.add_resource(UsersResource, '/users', endpoint='users')
+api.add_resource(UserResource, '/user', endpoint='user')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, threaded=True)
