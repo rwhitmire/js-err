@@ -1,10 +1,10 @@
 from flask import Flask
 from flask.ext.restful import Api
 from flask.ext.cors import CORS
-from resources import ErrorsResource
-from resources import UserResource
-from resources import UsersResource
-from resources import TokenResource
+from resources.errors import ErrorsResource
+from resources.user import UserResource
+from resources.users import UsersResource
+from resources.token import TokenResource
 
 app = Flask(__name__)
 api = Api(app)
