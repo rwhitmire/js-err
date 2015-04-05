@@ -22,6 +22,14 @@ class Site(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String)
     errors = relationship("Error")
+    site_users = relationship("SiteUser")
+
+
+class SiteUser(Base):
+    __tablename__ = 'site_users'
+
+    site_id = Column(Integer, ForeignKey('sites.id'), primary_key=True)
+    user_id = Column(Integer, ForeignKey('users.id'), primary_key=True)
 
 
 class User(Base):
@@ -30,6 +38,7 @@ class User(Base):
     id = Column(Integer, primary_key=True)
     username = Column(String, index=True)
     password_hash = Column(String)
+    site_users = relationship("SiteUser")
 
     def hash_password(self, password):
         self.password_hash = pwd_context.encrypt(password)
