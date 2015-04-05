@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Register</title>
+    <link rel="stylesheet" href="">
+</head>
+<body>
+    
+    <form>
+        <p><input type="text" id="site_name" name="site.name" placeholder="site name"></p>
+        <p><input type="text" id="user_username" name="user.username" placeholder="username"></p>
+        <p><input type="password" id="user_password" name="user.password" placeholder="password"></p>
+        <p><button>submit</button></p>
+    </form>
+
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="scripts/http.js"></script>
+
+    <script>
+        (function(){
+
+            $('form').on('submit', function(e) {
+                e.preventDefault();
+
+                var data = {
+                    'site.name': $('[name="site.name"]').val(),
+                    'user.username': $('[name="user.username"]').val(),
+                    'user.password': $('[name="user.password"]').val(),
+                }
+
+                var xhr = http.post('site_users', data);
+
+                xhr.done(function() {
+                    window.location = '/login.html';
+                });
+            });
+
+        })()
+    </script>
+
+</body>
+</html>
