@@ -14,8 +14,8 @@ class User(Base):
     __tablename__ = 'users'
 
     id = Column(Integer, primary_key=True)
-    username = Column(String, index=True)
-    password_hash = Column(String)
+    username = Column(String(128), index=True, nullable=False)
+    password_hash = Column(String(256), nullable=False)
 
     def hash_password(self, password):
         self.password_hash = pwd_context.encrypt(password)

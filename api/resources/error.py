@@ -2,6 +2,7 @@ from flask.ext.restful import Resource
 from flask.ext.restful import fields
 from flask.ext.restful import marshal_with
 from flask.ext.restful import reqparse
+from flask.ext.restful import abort
 from resources import auth
 from db import session
 from models.error import Error
@@ -27,7 +28,7 @@ fields = {
 }
 
 
-class ErrorsResource(Resource):
+class ErrorListResource(Resource):
     @auth.login_required
     @marshal_with(fields)
     def get(self):
@@ -75,3 +76,15 @@ class ErrorsResource(Resource):
         session.commit()
 
         return error, 201
+
+
+class ErrorResource(Resource):
+    @auth.login_required
+    @marshal_with(fields)
+    def get(self, id):
+        error = session.query(Error).get(id)
+
+        if error is None:
+            abort(404, message="Error {} doesn't exist".format(id))
+
+        return error

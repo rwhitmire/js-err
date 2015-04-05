@@ -22,7 +22,7 @@
 
 
     $(document).ready(function () {
-        var promise = $.when(http.get('user'));
+        var promise = $.when(http.get('current_user'));
 
         promise.done(function(user){
             App.user = new App.Models.User(user);

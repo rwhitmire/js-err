@@ -22,12 +22,12 @@ def password(password_str):
     return password_str
 
 
-class SiteUsersResource(Resource):
+class SiteUserResource(Resource):
     @marshal_with(fields)
     def post(self):
         parser = reqparse.RequestParser()
-        parser.add_argument('site.name', required=True)
-        parser.add_argument('user.username', required=True)
+        parser.add_argument('site.name', required=True, type=str)
+        parser.add_argument('user.username', required=True, type=str)
         parser.add_argument('user.password', required=True, type=password)
         args = parser.parse_args()
 

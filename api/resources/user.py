@@ -14,7 +14,11 @@ fields = {
 }
 
 
-class UsersResource(Resource):
+class UserListResource(Resource):
+    pass
+
+
+class UserResource(Resource):
     @marshal_with(fields)
     def post(self):
         parser = reqparse.RequestParser()
@@ -31,7 +35,7 @@ class UsersResource(Resource):
         return user, 201
 
 
-class UserResource(Resource):
+class CurrentUserResource(Resource):
     @auth.login_required
     @marshal_with(fields)
     def get(self):

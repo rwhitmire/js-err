@@ -9,5 +9,5 @@ class Site(Base):
     __tablename__ = 'sites'
 
     id = Column(Integer, primary_key=True)
-    name = Column(String)
+    name = Column(String(128))
     errors = relationship("Error")
