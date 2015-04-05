@@ -9,7 +9,8 @@ App.module('Routers', function(Routers) {
 
         appRoutes: {
             '': 'dashboard',
-            'dashboard': 'dashboard'
+            'dashboard': 'dashboard',
+            'errors/:id': 'error',
         }
 
     });
