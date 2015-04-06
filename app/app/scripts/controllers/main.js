@@ -7,8 +7,15 @@ App.module('Controllers', function(Controllers) {
             var xhr = http.get('errors');
 
             xhr.done(function(errors) {
+                console.log(errors);
                 var layout = new App.Views.Dashboard.Layout();
+
+                var errorTableView = new App.Views.Errors.TableView({
+                    collection: new App.Collections.Errors(errors),
+                });
+                
                 App.mainRegion.show(layout);
+                layout.showChildView('errors', errorTableView);
             });
         },
 

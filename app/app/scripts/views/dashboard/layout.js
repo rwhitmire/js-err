@@ -3,6 +3,9 @@ App.module('Views.Dashboard', function(Dashboard){
 
     Dashboard.Layout = Marionette.LayoutView.extend({
         template: JST['dashboard/layout.hbs'],
+        regions: {
+            errors: '#errors'
+        }
     });
 
 });
